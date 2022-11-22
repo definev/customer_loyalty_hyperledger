@@ -59,10 +59,16 @@ type Member struct {
 
 func (c *CustomerLoyaltyContract) CreateMember(
 	ctx contractapi.TransactionContextInterface,
-	member Member,
+	memberStr string,
 ) (*Member, error) {
+
+	member := Member{}
+	err := json.Unmarshal([]byte(memberStr), &member)
+	if err != nil {
+		return nil, NiceErrorf("Wrong member format", err)
+	}
 	memberJson, _ := json.Marshal(member)
-	err := ctx.GetStub().PutState(member.AccountNumber, memberJson)
+	err = ctx.GetStub().PutState(member.AccountNumber, memberJson)
 	if err != nil {
 		return nil, NiceErrorf("create member %s", err)
 	}
@@ -78,9 +84,18 @@ type Partner struct {
 
 func (c *CustomerLoyaltyContract) CreatePartner(
 	ctx contractapi.TransactionContextInterface,
-	partner Partner,
+	partnerStr string,
 ) (*Partner, error) {
-	partnerJson, _ := json.Marshal(partner)
+	partner := Partner{}
+	err := json.Unmarshal([]byte(partnerStr), &partner)
+	if err != nil {
+		return nil, NiceErrorf("Wrong partner format", err)
+	}
+	
+	partnerJson, err := json.Marshal(partner)
+	if err != nil {
+		return nil, NiceErrorf("parse partner to json", err)
+	}
 	ctx.GetStub().PutState(partner.Id, partnerJson)
 
 	rawAllPartners, err := ctx.GetStub().GetState(allPartnersKey)
@@ -96,8 +111,8 @@ func (c *CustomerLoyaltyContract) CreatePartner(
 	allPartner = append(allPartner, partner)
 	fmt.Printf("new all partner is %v\n", allPartner)
 
-	allPartnerBytes, _ := json.Marshal(allPartner)
-	err = ctx.GetStub().PutState(allPartnersKey, allPartnerBytes)
+	allPartnerJson, _ := json.Marshal(allPartner)
+	err = ctx.GetStub().PutState(allPartnersKey, allPartnerJson)
 	if err != nil {
 		return nil, NiceErrorf(fmt.Sprintf("put new %s", allPartnersKey), err)
 	}
@@ -105,11 +120,15 @@ func (c *CustomerLoyaltyContract) CreatePartner(
 	return &partner, nil
 }
 
-func (c *CustomerLoyaltyContract) GetState(ctx contractapi.TransactionContextInterface, key string) (string, error) {
+func (c *CustomerLoyaltyContract) GetState(
+	ctx contractapi.TransactionContextInterface,
+	key string,
+) (string, error) {
 	raw, err := ctx.GetStub().GetState(key)
 	if err != nil {
 		return "", NiceErrorf(fmt.Sprintf("Can't get %s", key), err)
 	}
+	ctx.GetStub()
 	return string(raw), nil
 }
 
@@ -123,8 +142,14 @@ type PointTransaction struct {
 
 func (c *CustomerLoyaltyContract) EarnPoints(
 	ctx contractapi.TransactionContextInterface,
-	earnPoints PointTransaction,
+	earnPointsStr string,
 ) (*PointTransaction, error) {
+	earnPoints := PointTransaction{}
+	err := json.Unmarshal([]byte(earnPointsStr), &earnPoints)
+	if err != nil {
+		return nil, NiceErrorf("wrong earn points format", err)
+	}
+
 	timestamp, err := ctx.GetStub().GetTxTimestamp()
 	if err != nil {
 		return nil, NiceErrorf("get TX timestamp", err)
@@ -137,6 +162,7 @@ func (c *CustomerLoyaltyContract) EarnPoints(
 	if err != nil {
 		return nil, NiceErrorf(fmt.Sprintf("get member %s", earnPoints.Member), err)
 	}
+
 	member := Member{}
 	json.Unmarshal(rawMember, &member)
 	member.Points += earnPoints.Points
@@ -166,8 +192,14 @@ func (c *CustomerLoyaltyContract) EarnPoints(
 
 func (c *CustomerLoyaltyContract) UsePoints(
 	ctx contractapi.TransactionContextInterface,
-	usePoints PointTransaction,
+	usePointsStr string,
 ) (*PointTransaction, error) {
+	usePoints := PointTransaction{}
+	err := json.Unmarshal([]byte(usePointsStr), &usePoints)
+	if err != nil {
+		return nil, NiceErrorf("wrong earn points format", err)
+	}
+	
 	timestamp, err := ctx.GetStub().GetTxTimestamp()
 	if err != nil {
 		return nil, NiceErrorf(fmt.Sprintf("get member %s", usePoints.Member), err)
