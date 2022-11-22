@@ -105,6 +105,14 @@ func (c *CustomerLoyaltyContract) CreatePartner(
 	return &partner, nil
 }
 
+func (c *CustomerLoyaltyContract) GetState(ctx contractapi.TransactionContextInterface, key string) (string, error) {
+	raw, err := ctx.GetStub().GetState(key)
+	if err != nil {
+		return "", NiceErrorf(fmt.Sprintf("Can't get %s", key), err)
+	}
+	return string(raw), nil
+}
+
 type PointTransaction struct {
 	Member        string `json:"member"`
 	Partner       string `json:"partner"`
