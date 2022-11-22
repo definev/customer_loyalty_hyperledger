@@ -1,6 +1,6 @@
 module github.com/definev/customer_loyalty_hyperledger/go-contract
 
-go 1.18
+go 1.19
 
 require (
 	github.com/hyperledger/fabric-chaincode-go v0.0.0-20220720122508-9207360bbddd

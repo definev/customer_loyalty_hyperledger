@@ -21,21 +21,25 @@ func (c *CustomerLoyaltyContract) InitLedger(ctx contractapi.TransactionContextI
 	if err != nil {
 		return NiceErrorf("instantiate contract", err)
 	}
-	ctx.GetStub().PutState(allPartnersKey, make([]byte, 0))
+	
+	emptyPartner, _ := json.Marshal(make([]Partner, 0))
+	ctx.GetStub().PutState(allPartnersKey, emptyPartner)
 	if err != nil {
 		return NiceErrorf(
 			fmt.Sprintf("put %s", allPartnersKey),
 			err,
 		)
 	}
-	ctx.GetStub().PutState(earnPointsTransactionsKey, make([]byte, 0))
+
+	emptyPoints, _ := json.Marshal(make([]PointTransaction, 0))
+	ctx.GetStub().PutState(earnPointsTransactionsKey, emptyPoints)
 	if err != nil {
 		return NiceErrorf(
 			fmt.Sprintf("put %s", earnPointsTransactionsKey),
 			err,
 		)
 	}
-	ctx.GetStub().PutState(usePointsTransactionsKey, make([]byte, 0))
+	ctx.GetStub().PutState(usePointsTransactionsKey, emptyPoints)
 	if err != nil {
 		return NiceErrorf(
 			fmt.Sprintf("put %s", usePointsTransactionsKey),
