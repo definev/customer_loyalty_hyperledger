@@ -3,6 +3,7 @@ module github.com/definev/customer_loyalty_hyperledger/go-gateway
 go 1.19
 
 require (
+	github.com/gin-gonic/gin v1.8.1
 	github.com/hyperledger/fabric-gateway v1.1.1
 	github.com/hyperledger/fabric-protos-go-apiv2 v0.3.0
 	google.golang.org/grpc v1.51.0
@@ -10,7 +11,6 @@ require (
 
 require (
 	github.com/gin-contrib/sse v0.1.0 // indirect
-	github.com/gin-gonic/gin v1.8.1 // indirect
 	github.com/go-playground/locales v0.14.0 // indirect
 	github.com/go-playground/universal-translator v0.18.0 // indirect
 	github.com/go-playground/validator/v10 v10.11.1 // indirect

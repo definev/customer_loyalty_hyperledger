@@ -21,7 +21,7 @@ func (c *CustomerLoyaltyContract) InitLedger(ctx contractapi.TransactionContextI
 	if err != nil {
 		return NiceErrorf("instantiate contract", err)
 	}
-	
+
 	emptyPartner, _ := json.Marshal(make([]Partner, 0))
 	ctx.GetStub().PutState(allPartnersKey, emptyPartner)
 	if err != nil {
@@ -95,7 +95,7 @@ func (c *CustomerLoyaltyContract) CreatePartner(
 	if err != nil {
 		return nil, NiceErrorf("Wrong partner format", err)
 	}
-	
+
 	partnerJson, err := json.Marshal(partner)
 	if err != nil {
 		return nil, NiceErrorf("parse partner to json", err)
@@ -110,7 +110,7 @@ func (c *CustomerLoyaltyContract) CreatePartner(
 	allPartner := []Partner{}
 	err = json.Unmarshal(rawAllPartners, &allPartner)
 	if err != nil {
-		return nil, NiceErrorf(fmt.Sprintf("parse %s json", allPartnersKey), err)
+		return nil, NiceErrorf(fmt.Sprintf("parse %s json | %s", allPartnersKey, string(rawAllPartners)), err)
 	}
 	allPartner = append(allPartner, partner)
 	fmt.Printf("new all partner is %v\n", allPartner)
@@ -130,9 +130,9 @@ func (c *CustomerLoyaltyContract) GetState(
 ) (string, error) {
 	raw, err := ctx.GetStub().GetState(key)
 	if err != nil {
-		return "", NiceErrorf(fmt.Sprintf("Can't get %s", key), err)
+		return "", NiceErrorf(fmt.Sprintf("can't get %s", key), err)
 	}
-	ctx.GetStub()
+
 	return string(raw), nil
 }
 
@@ -203,7 +203,7 @@ func (c *CustomerLoyaltyContract) UsePoints(
 	if err != nil {
 		return nil, NiceErrorf("wrong earn points format", err)
 	}
-	
+
 	timestamp, err := ctx.GetStub().GetTxTimestamp()
 	if err != nil {
 		return nil, NiceErrorf(fmt.Sprintf("get member %s", usePoints.Member), err)
