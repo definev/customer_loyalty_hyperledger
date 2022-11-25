@@ -49,7 +49,7 @@ function updateMember() {
                     let str = '<option value="" disabled="" selected="">select</option>';
                     let partnersData = data.partnersData;
                     for (let i = 0; i < partnersData.length; i++) {
-                        str = str + '<option partner-id=' + partnersData[i].id + '> ' + partnersData[i].name + '</option>';
+                        str = str + '<option partner-id=' + partnersData[i].partnerId + '> ' + partnersData[i].name + '</option>';
                     }
                     return str;
                 });
@@ -58,8 +58,11 @@ function updateMember() {
                 $('.use-partner select').html(function () {
                     let str = '<option value="" disabled="" selected="">select</option>';
                     let partnersData = data.partnersData;
+
+                    console.log(JSON.stringify(data));
+
                     for (let i = 0; i < partnersData.length; i++) {
-                        str = str + '<option partner-id=' + partnersData[i].id + '> ' + partnersData[i].name + '</option>';
+                        str = str + '<option partner-id=' + partnersData[i].partnerId + '> ' + partnersData[i].name + '</option>';
                     }
                     return str;
                 });
@@ -115,7 +118,6 @@ function earnPoints(formPoints) {
 
     //get user input data
     let formAccountNum = $('.account-number input').val();
-    let formCardId = $('.card-id input').val();
     let formPartnerId = $('.earn-partner select').find(':selected').attr('partner-id');
     if (!formPartnerId) {
         alert('Select partner first');
@@ -123,7 +125,7 @@ function earnPoints(formPoints) {
     }
 
     //create json data
-    let inputData = '{' + '"accountNumber" : "' + formAccountNum + '", ' + '"cardId" : "' + formCardId + '", ' + '"points" : "' + formPoints + '", ' + '"partnerId" : "' + formPartnerId + '"}';
+    let inputData = '{' + '"member" : "' + formAccountNum + '", ' + '"points" : ' + formPoints + ', ' + '"partner" : "' + formPartnerId + '"}';
     console.log(inputData);
 
     //make ajax call
@@ -189,7 +191,6 @@ function usePoints(formPoints) {
 
     //get user input data
     let formAccountNum = $('.account-number input').val();
-    let formCardId = $('.card-id input').val();
     let formPartnerId = $('.use-partner select').find(':selected').attr('partner-id');
 
     if (!formPartnerId) {
@@ -198,7 +199,7 @@ function usePoints(formPoints) {
     }
 
     //create json data
-    let inputData = '{' + '"accountNumber" : "' + formAccountNum + '", ' + '"cardId" : "' + formCardId + '", ' + '"points" : "' + formPoints + '", ' + '"partnerId" : "' + formPartnerId + '"}';
+    let inputData = '{' + '"member" : "' + formAccountNum + '", ' + '"points" : ' + formPoints + ', ' + '"partner" : "' + formPartnerId + '"}';
     console.log(inputData);
 
     //make ajax call

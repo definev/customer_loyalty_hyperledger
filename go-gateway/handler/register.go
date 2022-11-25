@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/hyperledger/fabric-gateway/pkg/client"
@@ -26,9 +27,11 @@ type Partner struct {
 }
 
 type PointTransaction struct {
-	Member        string `json:"member" binding:"required"`
-	Partner       string `json:"partner" binding:"required"`
-	Points        int    `json:"points" binding:"required"`
+	TransactionId string    `json:"transactionId"`
+	Member        string    `json:"member" binding:"required"`
+	Partner       string    `json:"partner" binding:"required"`
+	Points        int       `json:"points" binding:"required"`
+	Timestamp     time.Time `json:"timestamp"`
 }
 
 func CreateMember(contract *client.Contract) gin.HandlerFunc {
@@ -237,6 +240,8 @@ func MemberData(contract *client.Contract) gin.HandlerFunc {
 
 		returnedData["partnersData"] = allPartners
 
+		returnedData["points"] = totalPoints(earnPoints) - totalPoints(usePoints)
+
 		ctx.JSON(http.StatusOK, returnedData)
 	}
 }
@@ -318,11 +323,11 @@ func InitLedger(contract *client.Contract) {
 	}
 }
 
-func totalPoints(earnPointsTransactions []PointTransaction) int {
+func totalPoints(pointsTransactions []PointTransaction) int {
 	//loop through and add all points from the transactions
 	totalPointsGiven := 0
-	for i := 0; i < len(earnPointsTransactions); i++ {
-		totalPointsGiven = totalPointsGiven + earnPointsTransactions[i].Points
+	for i := 0; i < len(pointsTransactions); i++ {
+		totalPointsGiven = totalPointsGiven + pointsTransactions[i].Points
 	}
 	return totalPointsGiven
 }

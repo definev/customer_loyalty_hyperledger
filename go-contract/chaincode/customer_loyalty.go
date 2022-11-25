@@ -137,11 +137,11 @@ func (c *CustomerLoyaltyContract) GetState(
 }
 
 type PointTransaction struct {
-	Member        string `json:"member"`
-	Partner       string `json:"partner"`
-	Points        int    `json:"points"`
-	timestamp     time.Time
-	transactionId string
+	TransactionId string    `json:"transactionId"`
+	Member        string    `json:"member" binding:"required"`
+	Partner       string    `json:"partner" binding:"required"`
+	Points        int       `json:"points" binding:"required"`
+	Timestamp     time.Time `json:"timestamps"`
 }
 
 func (c *CustomerLoyaltyContract) EarnPoints(
@@ -159,8 +159,8 @@ func (c *CustomerLoyaltyContract) EarnPoints(
 		return nil, NiceErrorf("get TX timestamp", err)
 	}
 
-	earnPoints.timestamp = timestamp.AsTime()
-	earnPoints.transactionId = ctx.GetStub().GetTxID()
+	earnPoints.Timestamp = timestamp.AsTime()
+	earnPoints.TransactionId = ctx.GetStub().GetTxID()
 
 	rawMember, err := ctx.GetStub().GetState(earnPoints.Member)
 	if err != nil {
@@ -209,8 +209,8 @@ func (c *CustomerLoyaltyContract) UsePoints(
 		return nil, NiceErrorf(fmt.Sprintf("get member %s", usePoints.Member), err)
 	}
 
-	usePoints.timestamp = timestamp.AsTime()
-	usePoints.transactionId = ctx.GetStub().GetTxID()
+	usePoints.Timestamp = timestamp.AsTime()
+	usePoints.TransactionId = ctx.GetStub().GetTxID()
 
 	rawMember, err := ctx.GetStub().GetState(usePoints.Member)
 	if err != nil {
