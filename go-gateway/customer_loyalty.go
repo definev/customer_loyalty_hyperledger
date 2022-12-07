@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/definev/customer_loyalty_hyperledger/go-gateway/handler"
+	"github.com/definev/customer_loyalty_hyperledger/go-gateway/middleware"
 	"github.com/gin-gonic/gin"
 	"github.com/hyperledger/fabric-gateway/pkg/client"
 	"github.com/hyperledger/fabric-gateway/pkg/identity"
@@ -79,8 +80,12 @@ func main() {
 	api.POST("/memberData", handler.MemberData(contract))
 	api.POST("/partnerData", handler.PartnerData(contract))
 
+	api.Use(middleware.Auth("secret")).GET("/usePoints", handler.GetUsedPoints(contract))
+	api.Use(middleware.Auth("secret")).GET("/earnPoints", handler.GetEarnedPoints(contract))
+
 	r.Run(":8181")
 }
+
 
 // newGrpcConnection creates a gRPC connection to the Gateway server.
 func newGrpcConnection() *grpc.ClientConn {

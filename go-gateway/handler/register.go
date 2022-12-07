@@ -19,7 +19,6 @@ type Member struct {
 	Email         string `json:"email" binding:"required"`
 	PhoneNumber   string `json:"phoneNumber" binding:"required"`
 }
-
 type Partner struct {
 	Name   string `json:"name" binding:"required"`
 	Id     string `json:"partnerId" binding:"required"`
@@ -33,6 +32,8 @@ type PointTransaction struct {
 	Points        int       `json:"points" binding:"required"`
 	Timestamp     time.Time `json:"timestamp"`
 }
+
+
 
 func CreateMember(contract *client.Contract) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
@@ -160,6 +161,64 @@ func UsePoints(contract *client.Contract) gin.HandlerFunc {
 	}
 }
 
+func GetEarnedPoints(contract *client.Contract) gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		type Body struct {
+			AccountNumber string `json:"accountNumber" binding:"required"`
+		}
+		body := Body{}
+
+		if err := ctx.Bind(&body); err != nil {
+			ctx.String(http.StatusBadRequest, fmt.Sprintf("Failed to bind : %s", err))
+			return
+		}
+
+		earnedPointsJson, err := contract.SubmitTransaction("GetEarnedPoints", body.AccountNumber)
+		if err != nil {
+			ctx.String(http.StatusInternalServerError, fmt.Sprintf("Something went wrong : %v", err))
+			return
+		}
+
+		earnedPoints := PointTransaction{}
+		err = json.Unmarshal(earnedPointsJson, &earnedPoints)
+		if err != nil {
+			ctx.String(http.StatusInternalServerError, fmt.Sprintf("Something went wrong : %v", err))
+			return
+		}
+
+		ctx.JSON(http.StatusOK, earnedPoints)
+	}
+}
+
+func GetUsedPoints(contract *client.Contract) gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		type Body struct {
+			AccountNumber string `json:"accountNumber" binding:"required"`
+		}
+		body := Body{}
+
+		if err := ctx.Bind(&body); err != nil {
+			ctx.String(http.StatusBadRequest, fmt.Sprintf("Failed to bind : %s", err))
+			return
+		}
+
+		usedPointsJson, err := contract.SubmitTransaction("GetUsedPoints", body.AccountNumber)
+		if err != nil {
+			ctx.String(http.StatusInternalServerError, fmt.Sprintf("Something went wrong : %v", err))
+			return
+		}
+
+		usedPoints := PointTransaction{}
+		err = json.Unmarshal(usedPointsJson, &usedPoints)
+		if err != nil {
+			ctx.String(http.StatusInternalServerError, fmt.Sprintf("Something went wrong : %v", err))
+			return
+		}
+
+		ctx.JSON(http.StatusOK, usedPoints)
+	}
+}
+
 func MemberData(contract *client.Contract) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		returnedData := map[string]any{}
@@ -208,7 +267,7 @@ func MemberData(contract *client.Contract) gin.HandlerFunc {
 		}
 
 		returnedData["usePointsResults"] = usePoints
-
+			
 		// ----- EARN POINTS FETCH -----
 		// fetchEarnPoints
 		earnPointsJson, err := contract.SubmitTransaction("EarnPointsTransactionsInfo", "member", body.AccountNumber)
