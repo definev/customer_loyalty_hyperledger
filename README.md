@@ -6,8 +6,8 @@ A blockchain system that stores loyalty points transparently
 
 - [Go](https://go.dev/doc/install)
 - [Docker](https://www.docker.com/)
-- [hyperledger binary]
-- ```chmox +x install-fabric.sh && ./install-fabric.sh```
+
+Chạy `make install` để cài docker image và binary cần thiết cần thiết
 
 ## Pre-run
 
@@ -20,7 +20,7 @@ export PATH=$PATH:$PWD/bin
 
 Vào thư mục `test-network` để thực hiện tất cả các dòng lệnh phía dưới
 ```bash
-cd test-network
+make run network
 ```
 
 Nếu chưa build network lần nào hoặc muốn build lại chạy lệnh sau
