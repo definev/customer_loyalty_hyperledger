@@ -3,9 +3,9 @@
 *	SPDX-License-Identifier: Apache-2.0
  */
 
-import 'package:device_preview/device_preview.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wallet/features/dashboard/dashboard_view.dart';
@@ -13,10 +13,8 @@ import 'package:wallet/features/sign_in/sign_in_provider.dart';
 import 'package:wallet/features/sign_in/sign_in_view.dart';
 
 void main() {
-  runApp(ProviderScope(
-    child: DevicePreview(
-      builder: (context) => const App(),
-    ),
+  runApp(const ProviderScope(
+    child: App(),
   ));
 }
 
@@ -31,6 +29,15 @@ class App extends StatelessWidget {
       textTheme: GoogleFonts.interTextTheme(),
     ).toTheme;
     return MaterialApp(
+      localizationsDelegates: const [
+        GlobalCupertinoLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en', 'US'), // English
+        Locale('vi', 'VN'), // English
+      ],
       useInheritedMediaQuery: true,
       theme: theme.copyWith(
           textTheme: theme.textTheme.apply(

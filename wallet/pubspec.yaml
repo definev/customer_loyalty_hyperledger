@@ -52,6 +52,8 @@ dependencies:
   hooks_riverpod: ^2.1.1
   flutter_hooks: ^0.18.5+1
   intl: ^0.17.0
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:
