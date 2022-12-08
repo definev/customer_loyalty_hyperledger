@@ -16,6 +16,7 @@ $('.sign-in-partner').click(function () {
     //make ajax call
     $.ajax({
         type: 'POST',
+        crossDomain: true,
         url: apiUrl + 'partnerData',
         data: inputData,
         dataType: 'json',

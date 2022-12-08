@@ -15,6 +15,7 @@ function updateMember() {
     //make ajax call
     $.ajax({
         type: 'POST',
+        crossDomain: true,
         url: apiUrl + 'memberData',
         data: inputData,
         dataType: 'json',

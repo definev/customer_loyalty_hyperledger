@@ -22,6 +22,7 @@ $('.register-member').click(function () {
     //make ajax call to add the dataset
     $.ajax({
         type: 'POST',
+        crossDomain: true,
         url: apiUrl + 'registerMember',
         data: inputData,
         dataType: 'json',
