@@ -46,6 +46,13 @@ Expose localhost lên mạng bằng `ngrok`
 ```
 ngrok http 8181
 ```
+Thay GATEWAY_URL trong file `wallet/lib/config/gateway.dart` bằng url được sinh ra bởi `ngrok`
+
+<img src="assets/ngrok_expose.png" alt="file-count" width="500"/>
+
+```
+https://0a20-203-113-147-183.ap.ngrok.io
+```
 
 ## Run the client
 
