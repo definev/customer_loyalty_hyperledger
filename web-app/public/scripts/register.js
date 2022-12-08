@@ -1,7 +1,7 @@
 'use strict';
 
-// let apiUrl = 'https://6100-203-113-147-183.ap.ngrok.io/api/';
-let apiUrl = 'http://localhost:8181/api/';
+let apiUrl = 'https://6a5b-203-113-147-183.ap.ngrok.io/api/';
+// let apiUrl = 'http://localhost:8181/api/';
 
 console.log('at register.js');
 
