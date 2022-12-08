@@ -1,6 +1,6 @@
 'use strict';
 
-let apiUrl = location.protocol + '//' + 'localhost:8181' + '/api/';
+let apiUrl = location.protocol + '//' + process.env.API_URL + '/api/';
 
 //check user input and call server
 $('.sign-in-partner').click(function () {
