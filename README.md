@@ -23,7 +23,6 @@ export PATH=$PATH:$PWD/bin
 
 ## Run the network
 
-Vào thư mục `test-network` để thực hiện tất cả các dòng lệnh phía dưới
 ```bash
 make run_network
 ```
