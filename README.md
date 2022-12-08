@@ -67,7 +67,6 @@ Vào thư mục `wallet` chạy lệnh
 flutter run
 ```
 
-<<<<<<< HEAD
 Tạo người dùng và partner bằng web-admin bên trên, đăng nhập sử dụng trên wallet
 
 ## Thông số mã nguồn
