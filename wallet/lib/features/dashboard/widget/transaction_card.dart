@@ -82,7 +82,7 @@ class TransactionCard extends StatelessWidget {
                                 ),
                                 const SizedBox(width: 3),
                                 Text(
-                                  DateFormat.yMEd('vi_VN').format(transaction.timestamp),
+                                  DateFormat('HH:mm || yyyy-MM-dd', 'vi_VN').format(transaction.timestamp),
                                   style: theme.textTheme.bodyMedium!.copyWith(
                                     color: Colors.black.withOpacity(0.45),
                                     fontWeight: FontWeight.w500,

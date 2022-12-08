@@ -1,7 +1,6 @@
 'use strict';
 
-let apiUrl = 'https://6a5b-203-113-147-183.ap.ngrok.io/api/';
-// let apiUrl = 'http://localhost:8181/api/';
+let apiUrl = location.protocol + '//' + 'localhost:8181' + '/api/';
 
 function updateMember() {
 
@@ -16,12 +15,6 @@ function updateMember() {
     //make ajax call
     $.ajax({
         type: 'POST',
-        headers: {
-            'Access-Control-Allow-Credentials': 'true',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET,OPTIONS,PATCH,DELETE,POST,PUT',
-            'Access-Control-Allow-Headers': 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version',
-        },
         url: apiUrl + 'memberData',
         data: inputData,
         dataType: 'json',
