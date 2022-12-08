@@ -73,6 +73,3 @@ Tạo người dùng và partner bằng web-admin bên trên, đăng nhập sử
 <img src="assets/file_count.png" alt="file-count" width="500"/>
 
 <img src="assets/line_count.png" alt="line-count" width="500"/>
-=======
-Tạo người dùng và partner bằng web-admin bên trên, đăng nhập sử dụng trên wallet
->>>>>>> 312ee22b26aee8e75f89567a8f73d8667e42a05a
