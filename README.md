@@ -20,22 +20,7 @@ export PATH=$PATH:$PWD/bin
 
 Vào thư mục `test-network` để thực hiện tất cả các dòng lệnh phía dưới
 ```bash
-make run network
-```
-
-Nếu chưa build network lần nào hoặc muốn build lại chạy lệnh sau
-```
-./network.sh down
-```
-
-Dựng network trên docker bằng lệnh sau
-```bash
-./network.sh up createChannel -ca
-```
-
-Nén chaincode của chúng ta ở thư mục `go-contract` và đấy vào network
-```bash
-./network.sh deployCC -ccn loyalty -ccl go -ccp ../go-contract -cci InitLedger
+make run_network
 ```
 
 Đã xong phần build chaincode và mở các cổng để kết nối ra ngoài
