@@ -46,6 +46,13 @@ Expose localhost lên mạng bằng `ngrok`
 ```
 ngrok http 8181
 ```
+Thay GATEWAY_URL trong file `wallet/lib/config/gateway.dart` bằng url được sinh ra bởi `ngrok`
+
+<img src="assets/ngrok_expose.png" alt="file-count" width="500"/>
+
+```
+https://0a20-203-113-147-183.ap.ngrok.io
+```
 
 ## Run the client
 
@@ -67,13 +74,9 @@ Vào thư mục `wallet` chạy lệnh
 flutter run
 ```
 
-<<<<<<< HEAD
 Tạo người dùng và partner bằng web-admin bên trên, đăng nhập sử dụng trên wallet
 
 ## Thông số mã nguồn
 <img src="assets/file_count.png" alt="file-count" width="500"/>
 
 <img src="assets/line_count.png" alt="line-count" width="500"/>
-=======
-Tạo người dùng và partner bằng web-admin bên trên, đăng nhập sử dụng trên wallet
->>>>>>> 312ee22b26aee8e75f89567a8f73d8667e42a05a
