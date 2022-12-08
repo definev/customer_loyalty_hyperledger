@@ -9,6 +9,7 @@ import (
 	"crypto/x509"
 	"fmt"
 	"log"
+	"net/http"
 	"os"
 	"time"
 
@@ -77,8 +78,13 @@ func main() {
 	api.POST("/memberData", handler.MemberData(contract))
 	api.POST("/partnerData", handler.PartnerData(contract))
 
-	api.Use(middleware.Auth(secret)).GET("/usePoints", handler.GetUsedPoints(contract))
-	api.Use(middleware.Auth(secret)).GET("/earnPoints", handler.GetEarnedPoints(contract))
+	api.POST("/client/usePoints", handler.GetUsedPoints(contract))
+	api.POST("/client/earnPoints", handler.GetEarnedPoints(contract))
+	api.POST("/client/memberData", handler.GetMemberData(contract))
+
+	r.GET("/ping", func(ctx *gin.Context) {
+		ctx.String(http.StatusOK, "PONG!!!")
+	})
 
 	r.Run(":8181")
 }

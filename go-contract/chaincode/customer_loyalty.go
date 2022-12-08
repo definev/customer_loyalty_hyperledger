@@ -146,7 +146,8 @@ type PointTransaction struct {
 	Member        string    `json:"member" binding:"required"`
 	Partner       string    `json:"partner" binding:"required"`
 	Points        int       `json:"points" binding:"required"`
-	Timestamp     time.Time `json:"timestamps"`
+	Type          string    `json:"type" binding:"required"`
+	Timestamp     time.Time `json:"timestamp"`
 }
 
 func (c *CustomerLoyaltyContract) EarnPoints(
@@ -166,6 +167,7 @@ func (c *CustomerLoyaltyContract) EarnPoints(
 
 	earnPoints.Timestamp = timestamp.AsTime()
 	earnPoints.TransactionId = ctx.GetStub().GetTxID()
+	earnPoints.Type = "earn"
 
 	rawMember, err := ctx.GetStub().GetState(earnPoints.Member)
 	if err != nil {
@@ -216,6 +218,7 @@ func (c *CustomerLoyaltyContract) UsePoints(
 
 	usePoints.Timestamp = timestamp.AsTime()
 	usePoints.TransactionId = ctx.GetStub().GetTxID()
+	usePoints.Type = "use"
 
 	rawMember, err := ctx.GetStub().GetState(usePoints.Member)
 	if err != nil {
