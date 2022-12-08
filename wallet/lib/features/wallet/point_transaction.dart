@@ -1,3 +1,8 @@
+/*
+*	Copyright PKA.CPD . All Rights Reserved.
+*	SPDX-License-Identifier: Apache-2.0
+ */
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'point_transaction.freezed.dart';

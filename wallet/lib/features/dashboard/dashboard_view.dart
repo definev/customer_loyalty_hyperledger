@@ -1,3 +1,8 @@
+/*
+*	Copyright PKA.CPD . All Rights Reserved.
+*	SPDX-License-Identifier: Apache-2.0
+ */
+
 import 'package:flutter/material.dart';
 import 'package:flutter_avataaar/flutter_avataaar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -5,6 +10,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:line_icons/line_icon.dart';
 import 'package:universal_io/io.dart';
 import 'package:wallet/features/dashboard/widget/transaction_card.dart';
+import 'package:wallet/features/sign_in/sign_in_provider.dart';
 import 'package:wallet/resources/resources.dart';
 
 class DashboardView extends ConsumerStatefulWidget {
@@ -52,7 +58,10 @@ class _DashboardViewState extends ConsumerState<DashboardView> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        leading: LineIcon.broadcastTower(),
+        leading: GestureDetector(
+          onTap: () => ref.refresh(fetchTransactionsProvider),
+          child: LineIcon.syncIcon(),
+        ),
         actions: [
           SizedBox(
             height: 56,
@@ -74,24 +83,29 @@ class _DashboardViewState extends ConsumerState<DashboardView> {
         child: ListView(
           children: [
             // TITLE
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 30, 20, 20),
-              child: Text.rich(
-                TextSpan(
-                  text: 'Chào, ',
-                  style: theme.textTheme.headlineLarge!.copyWith(color: Colors.black, fontWeight: FontWeight.w300),
-                  children: [
-                    TextSpan(
-                      text: 'Foo',
-                      style: theme.textTheme.headlineLarge!.copyWith(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500,
+            Consumer(builder: (context, ref, child) {
+              final data =
+                  ref.watch(signInStateProvider.select((value) => value.mapOrNull(signedIn: (value) => value)!));
+
+              return Padding(
+                padding: const EdgeInsets.fromLTRB(20, 30, 20, 20),
+                child: Text.rich(
+                  TextSpan(
+                    text: 'Chào, ',
+                    style: theme.textTheme.headlineLarge!.copyWith(color: Colors.black, fontWeight: FontWeight.w300),
+                    children: [
+                      TextSpan(
+                        text: data.member.lastName,
+                        style: theme.textTheme.headlineLarge!.copyWith(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ),
+              );
+            }),
 
             // CLASSES
             Padding(
@@ -197,7 +211,7 @@ class _DashboardViewState extends ConsumerState<DashboardView> {
                                     ),
                                   ),
                                   Text(
-                                    'Uwu đãi',
+                                    'Ưu đãi',
                                     style: theme.textTheme.bodyMedium!.copyWith(color: Colors.white),
                                   ),
                                 ],
@@ -423,11 +437,11 @@ class DragHeader extends StatelessWidget {
               destinations: [
                 NavigationDestination(
                   icon: LineIcon.home(),
-                  label: 'Home',
+                  label: 'Trang chủ',
                 ),
                 NavigationDestination(
                   icon: LineIcon.cog(),
-                  label: 'Setting',
+                  label: 'Cài đặt',
                 ),
               ],
             ),

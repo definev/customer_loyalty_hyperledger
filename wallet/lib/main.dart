@@ -1,3 +1,8 @@
+/*
+*	Copyright PKA.CPD . All Rights Reserved.
+*	SPDX-License-Identifier: Apache-2.0
+ */
+
 import 'package:device_preview/device_preview.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
