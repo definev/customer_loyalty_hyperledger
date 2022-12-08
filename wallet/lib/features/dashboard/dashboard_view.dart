@@ -211,7 +211,7 @@ class _DashboardViewState extends ConsumerState<DashboardView> {
                                     ),
                                   ),
                                   Text(
-                                    'Uwu đãi',
+                                    'Ưu đãi',
                                     style: theme.textTheme.bodyMedium!.copyWith(color: Colors.white),
                                   ),
                                 ],
@@ -437,11 +437,11 @@ class DragHeader extends StatelessWidget {
               destinations: [
                 NavigationDestination(
                   icon: LineIcon.home(),
-                  label: 'Home',
+                  label: 'Trang chủ',
                 ),
                 NavigationDestination(
                   icon: LineIcon.cog(),
-                  label: 'Setting',
+                  label: 'Cài đặt',
                 ),
               ],
             ),
