@@ -6,8 +6,13 @@ A blockchain system that stores loyalty points transparently
 
 - [Go](https://go.dev/doc/install)
 - [Docker](https://www.docker.com/)
+- [ngrok](https://ngrok.com/)
 
 Chạy `make install` để cài docker image và binary cần thiết cần thiết
+
+### Sử dụng wallet app
+
+Cài đặt [flutter](https://docs.flutter.dev/get-started/install) nếu muốn chạy app wallet
 
 ## Pre-run
 
@@ -38,6 +43,11 @@ go get
 go run customer_loyalty.go
 ```
 
+Expose localhost lên mạng bằng `ngrok`
+```
+ngrok http 8181
+```
+
 ## Run the client
 
 Vào thư mục `web-app` để thực hiện tất cả các dòng lệnh phía dưới
@@ -50,3 +60,12 @@ Chạy client
 npm install
 npm run start
 ```
+
+## Run the wallet
+
+Vào thư mục `wallet` chạy lệnh
+```
+flutter run
+```
+
+Tạo người dùng và partner bằng web-admin bên trên, đăng nhập sử dụng trên wallet
