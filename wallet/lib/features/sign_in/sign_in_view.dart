@@ -1,3 +1,8 @@
+/*
+*	Copyright PKA.CPD . All Rights Reserved.
+*	SPDX-License-Identifier: Apache-2.0
+ */
+
 import 'package:dio/dio.dart';
 import 'package:flextras/flextras.dart';
 import 'package:flutter/material.dart';

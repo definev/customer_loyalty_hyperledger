@@ -1,3 +1,8 @@
+/*
+*	Copyright PKA.CPD . All Rights Reserved.
+*	SPDX-License-Identifier: Apache-2.0
+ */
+
 import 'package:flutter/material.dart';
 import 'package:flutter_avataaar/flutter_avataaar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
