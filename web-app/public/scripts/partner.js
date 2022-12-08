@@ -1,6 +1,6 @@
 'use strict';
 
-let apiUrl = location.protocol + '//' + process.env.API_URL + '/api/';
+let apiUrl = 'https://6100-203-113-147-183.ap.ngrok.io/api/';
 
 //check user input and call server
 $('.sign-in-partner').click(function () {
